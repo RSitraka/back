@@ -89,7 +89,7 @@ export class MaterielService {
     const materiel = await this.findOne(materielId);
     const fichier = await this.fichierService.findOne(fichierId);
 
-    if (fichier.site.id !== materiel.site?.id) {
+    if (fichier.site && fichier.site.id !== materiel.site?.id) {
       throw new BadRequestException(
         'Le fichier et le matériel doivent appartenir au même site',
       );

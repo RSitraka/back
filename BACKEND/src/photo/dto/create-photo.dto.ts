@@ -8,6 +8,10 @@ export class CreatePhotoDto {
 
   @IsString()
   @IsOptional()
+  originalName?: string;
+
+  @IsString()
+  @IsOptional()
   description?: string;
 
   @IsUUID('4', { message: 'siteId doit être un UUID valide' })

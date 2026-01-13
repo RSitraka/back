@@ -27,11 +27,18 @@ export class Fichier {
   })
   type: TypeFichier;
 
+  @Column()
+  originalName:string;
+
   @Column({ nullable: true })
   description: string;
 
-  @ManyToOne(() => Site, (site) => site.fichiers)
-  site: Site;
+  @ManyToOne(() => Site, (site) => site.fichiers, {
+    nullable: true,
+    onDelete: 'SET NULL',
+  })
+  site?: Site;
+  
 
   @CreateDateColumn()
   uploadedAt: Date;

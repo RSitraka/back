@@ -8,10 +8,13 @@ import {
   JoinColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
 import { Site } from '../site/site.entity';
 import { Depense } from '../depense/depense.entity';
 import { User } from '../user/user.entity';
+import { Fichier } from '../fichier/fichier.entity';
 
 @Entity('employes')
 export class Employe {
@@ -33,11 +36,20 @@ export class Employe {
   @Column({ nullable: true })
   nationalite: string;
 
-  @Column({ nullable: true })
-  scanPhotoCIN: string;
+  @ManyToMany(() => Fichier, { cascade: true })
+  @JoinTable({
+    name: 'employe_certificats',
+    joinColumn: { name: 'employeId', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'fichierId', referencedColumnName: 'id' },
+  })
+  scanCertificats: Fichier[];
 
-  @Column({ nullable: true })
-  scanCertificat: string;
+  @ManyToOne(() => Fichier, { nullable: true, cascade: true, onDelete: 'SET NULL' })
+  @JoinColumn()
+  scanPhotoCIN?: Fichier | null;
+
+
+
 
   @Column('decimal', { precision: 10, scale: 2, default: 0 })
   salaire: number;

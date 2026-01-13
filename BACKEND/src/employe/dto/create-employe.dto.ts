@@ -47,7 +47,7 @@ export class CreateEmployeDto {
 
   @IsString()
   @IsOptional()
-  scanCertificat?: string;
+  scanCertificat?: string[];
 
   @IsNumber()
   @Min(0)

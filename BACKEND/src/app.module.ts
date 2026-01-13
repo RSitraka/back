@@ -18,12 +18,18 @@ import { DemandeAchatModule } from './demande-achat/demande-achat.module';
 import { DemandeAvanceModule } from './demande-avance/demande-avance.module';
 import { DemandeBudgetModule } from './demande-budget/demande-budget.module';
 import { LivraisonModule } from './livraison/livraison.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: '.env',
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public'),
+      serveRoot: '/',
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],

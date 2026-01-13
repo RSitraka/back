@@ -1,29 +1,41 @@
 curl -X POST http://localhost:3000/api/fichiers \
-  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3YjUyNmE0My1mOTdjLTRmNzItYWI1MC1iNDQ0M2U5ZTBlODEiLCJlbWFpbCI6ImFkbWluQG1hc3RlcjIubWciLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3Njc2MTcxMjEsImV4cCI6MTc2ODIyMTkyMX0.eLvlV-raaFSLSH6lWVeux7jdUpgZxGq8PK8-1KdAuEY" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1OTI2ZGIxOC00MmQ2LTQwMzYtYTk5My0xNGM5N2IzNjkwMjIiLCJlbWFpbCI6ImFkbWluQG1hc3RlcjIubWciLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NjgyOTMxMjksImV4cCI6MTc2ODg5NzkyOX0.0Glt_rxYeZ2lid08rdb2BRt5p8pOu9GxXMpk4VudQws" \
   -F "pdf=@/home/zsailine/Downloads/zsailineCV.pdf" \
 -F "type=Document" \
   -F "description=CV employé" \
-  -F "siteId=12ab137d-9f31-400a-8612-1db05b01585e"
+  -F "siteId=c845604f-9a10-4763-bf29-3978bb206619"
 
-curl -X GET "http://localhost:3000/api/fichiers?siteId=12ab137d-9f31-400a-8612-1db05b01585e" \
+curl -X GET "http://localhost:3000/api/fichiers?siteId=d4357e36-4d56-49ca-b687-b7b23df005e9" \
   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3YjUyNmE0My1mOTdjLTRmNzItYWI1MC1iNDQ0M2U5ZTBlODEiLCJlbWFpbCI6ImFkbWluQG1hc3RlcjIubWciLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3Njc2MTcxMjEsImV4cCI6MTc2ODIyMTkyMX0.eLvlV-raaFSLSH6lWVeux7jdUpgZxGq8PK8-1KdAuEY"
 
 curl -X DELETE \
-"http://localhost:3000/api/fichiers/feead8e8-0a33-4141-935a-0880041e531e" \
+"http://localhost:3000/api/fichiers/bae03a66-82e0-4ebd-b508-893278f760ec" \
  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3YjUyNmE0My1mOTdjLTRmNzItYWI1MC1iNDQ0M2U5ZTBlODEiLCJlbWFpbCI6ImFkbWluQG1hc3RlcjIubWciLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3Njc2MTcxMjEsImV4cCI6MTc2ODIyMTkyMX0.eLvlV-raaFSLSH6lWVeux7jdUpgZxGq8PK8-1KdAuEY"
 
 
 curl -X POST http://localhost:3000/api/photos \
   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3YjUyNmE0My1mOTdjLTRmNzItYWI1MC1iNDQ0M2U5ZTBlODEiLCJlbWFpbCI6ImFkbWluQG1hc3RlcjIubWciLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3Njc2MTcxMjEsImV4cCI6MTc2ODIyMTkyMX0.eLvlV-raaFSLSH6lWVeux7jdUpgZxGq8PK8-1KdAuEY" \
-  -F "pdf=@/home/zsailine/Downloads/image.jpg" \
+  -F "image=@/home/zsailine/Downloads/logo.jpg" \
   -F "description=CV employé" \
-  -F "siteId=12ab137d-9f31-400a-8612-1db05b01585e"
+  -F "siteId=d4357e36-4d56-49ca-b687-b7b23df005e9"
 
-  curl -X GET "http://localhost:3000/api/photos?siteId=12ab137d-9f31-400a-8612-1db05b01585e" \
+  curl -X GET "http://localhost:3000/api/photos?siteId=d4357e36-4d56-49ca-b687-b7b23df005e9" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3YjUyNmE0My1mOTdjLTRmNzItYWI1MC1iNDQ0M2U5ZTBlODEiLCJlbWFpbCI6ImFkbWluQG1hc3RlcjIubWciLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3Njc2MTcxMjEsImV4cCI6MTc2ODIyMTkyMX0.eLvlV-raaFSLSH6lWVeux7jdUpgZxGq8PK8-1KdAuEY"
+
+  curl -X GET "http://localhost:3000/api/photos?siteId=d4357e36-4d56-49ca-b687-b7b23df005e9" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3YjUyNmE0My1mOTdjLTRmNzItYWI1MC1iNDQ0M2U5ZTBlODEiLCJlbWFpbCI6ImFkbWluQG1hc3RlcjIubWciLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3Njc2MTcxMjEsImV4cCI6MTc2ODIyMTkyMX0.eLvlV-raaFSLSH6lWVeux7jdUpgZxGq8PK8-1KdAuEY"
+
+  curl -X GET "http://localhost:3000/api/photos/download/2de37c79-3b22-4e13-978c-8eb4a41877dd" \
   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3YjUyNmE0My1mOTdjLTRmNzItYWI1MC1iNDQ0M2U5ZTBlODEiLCJlbWFpbCI6ImFkbWluQG1hc3RlcjIubWciLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3Njc2MTcxMjEsImV4cCI6MTc2ODIyMTkyMX0.eLvlV-raaFSLSH6lWVeux7jdUpgZxGq8PK8-1KdAuEY"
 
 curl -X DELETE \
-"http://localhost:3000/api/photos/08c9dde3-fce1-44a1-9509-201bfa41b464" \
+"http://localhost:3000/api/photos/adbdebb0-6abe-4711-a04f-af5bcc04f88f" \
  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3YjUyNmE0My1mOTdjLTRmNzItYWI1MC1iNDQ0M2U5ZTBlODEiLCJlbWFpbCI6ImFkbWluQG1hc3RlcjIubWciLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3Njc2MTcxMjEsImV4cCI6MTc2ODIyMTkyMX0.eLvlV-raaFSLSH6lWVeux7jdUpgZxGq8PK8-1KdAuEY"
 
+    GET http://localhost:3000/photos/logo-14147201314115119849119.jpg
 
+
+curl -X PATCH http://localhost:3000/api/employes/743f5a96-cc89-42f9-8088-a61f1d968b13
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1OTI2ZGIxOC00MmQ2LTQwMzYtYTk5My0xNGM5N2IzNjkwMjIiLCJlbWFpbCI6ImFkbWluQG1hc3RlcjIubWciLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NjgyOTMxMjksImV4cCI6MTc2ODg5NzkyOX0.0Glt_rxYeZ2lid08rdb2BRt5p8pOu9GxXMpk4VudQws" \
+  -F "certificats=@/home/zsailine/Downloads/zsailineCV.pdf" \
+  -F "certificats=@/home/zsailine/Downloads/zsailineCV.pdf"

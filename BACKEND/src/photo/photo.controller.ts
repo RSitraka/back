@@ -8,7 +8,10 @@ import {
   Query,
   UseInterceptors,
   UploadedFile,
+  Res,
+  NotFoundException,
 } from '@nestjs/common';
+import type { Response } from 'express';
 import { PhotoService } from './photo.service';
 import { CreatePhotoDto } from './dto/create-photo.dto';
 //import { UpdatephotoDto } from './dto/update-photo.dto';
@@ -17,15 +20,16 @@ import { multerOptionsPhotos } from '../config/multer/config';
 
 @Controller('photos')
 export class PhotoController {
-  constructor(private readonly PhotoService: PhotoService) {}
+  constructor(private readonly PhotoService: PhotoService) { }
 
   @Post()
-  @UseInterceptors(FileInterceptor('pdf', multerOptionsPhotos))
+  @UseInterceptors(FileInterceptor('image', multerOptionsPhotos))
   async create(
     @UploadedFile() file: Express.Multer.File,
     @Body() dto: CreatePhotoDto,
   ) {
     dto.url = file.path.replace(/\\/g, '/');
+    dto.originalName = file.originalname;
     return this.PhotoService.create(dto);
   }
   @Get()
@@ -49,5 +53,18 @@ export class PhotoController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.PhotoService.remove(id);
+  }
+  @Get('/download/:id')
+  async download(@Param('id') id: string, @Res() res: Response) {
+    const photo = await this.PhotoService.findOne(id);
+    if (!photo) {
+      throw new NotFoundException();
+    }
+    res.setHeader(
+      'Content-Disposition',
+      `inline; filename="${photo.originalName}"`
+    );
+
+    return res.sendFile(photo.url, { root: './' });
   }
 }

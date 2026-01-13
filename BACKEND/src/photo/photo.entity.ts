@@ -13,10 +13,13 @@ export class Photo {
   id: string;
 
   @Column()
-  url: string; // Chemin ou URL du fichier
+  url: string;
 
   @Column({ nullable: true })
   description: string;
+
+  @Column()
+  originalName: string;
 
   @ManyToOne(() => Site, (site) => site.photos)
   site: Site;

@@ -6,15 +6,13 @@ import {
   IsUUID,
 } from 'class-validator';
 import { TypeFichier } from '../fichier.entity';
-
 export class CreateFichierDto {
   @IsString()
   @IsOptional()
   url?: string;
 
   @IsEnum(TypeFichier, {
-    message:
-      'Type invalide. Valeurs possibles : Scan de facture, Document, Autre',
+    message: 'Type invalide. Valeurs possibles : Scan de facture, Document, Autre',
   })
   @IsOptional()
   type?: TypeFichier;
@@ -23,7 +21,12 @@ export class CreateFichierDto {
   @IsOptional()
   description?: string;
 
+  @IsString()
+  @IsOptional()
+  originalName?: string;
+
   @IsUUID('4', { message: 'siteId doit être un UUID valide' })
-  @IsNotEmpty()
-  siteId: string;
+  @IsOptional()
+  siteId?: string;
 }
+

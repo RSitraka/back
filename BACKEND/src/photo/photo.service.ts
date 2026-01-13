@@ -4,6 +4,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Photo } from './photo.entity';
 import { CreatePhotoDto } from './dto/create-photo.dto';
+import { ft_delete } from '../utils/utils';
+import { SiteService } from '../site/site.service';
 //import { UpdatePhotoDto } from './dto/update-photo.dto';
 
 @Injectable()
@@ -11,9 +13,14 @@ export class PhotoService {
   constructor(
     @InjectRepository(Photo)
     private PhotoRepository: Repository<Photo>,
-  ) {}
+    private readonly siteService: SiteService
+  ) { }
 
   async create(createPhotoDto: CreatePhotoDto): Promise<Photo> {
+    const site = await this.siteService.findOne(createPhotoDto.siteId);
+    if (!site) {
+      throw new NotFoundException('Site introuvable');
+    }
     const Photo = this.PhotoRepository.create({
       ...createPhotoDto,
       site: { id: createPhotoDto.siteId },
@@ -30,10 +37,10 @@ export class PhotoService {
   async findOne(id: string): Promise<Photo> {
     const Photo = await this.PhotoRepository.findOne({
       where: { id },
-      relations: ['site', 'depenses'],
+      relations: ['site'],
     });
     if (!Photo) {
-      throw new NotFoundException(`Employé avec l'ID ${id} non trouvé`);
+      throw new NotFoundException(`Image non trouvable`);
     }
     return Photo;
   }
@@ -55,9 +62,15 @@ export class PhotoService {
   }*/
 
   async remove(id: string): Promise<void> {
-    const result = await this.PhotoRepository.delete(id);
-    if (result.affected === 0) {
-      throw new NotFoundException(`Employé avec l'ID ${id} non trouvé`);
+    const photo = await this.PhotoRepository.findOne({
+      where: { id },
+    });
+    if (!photo) {
+      throw new NotFoundException('Image introuvable');
     }
+    const photoUrl = photo.url;
+    ft_delete(photoUrl);
+    await this.PhotoRepository.delete(id);
   }
+
 }

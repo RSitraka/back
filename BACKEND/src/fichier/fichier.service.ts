@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { Fichier } from './fichier.entity';
 import { CreateFichierDto } from './dto/create-fichier.dto';
 import { UpdateFichierDto } from './dto/update-fichier.dto';
+import { ft_delete } from '../utils/utils';
 
 @Injectable()
 export class FichierService {
@@ -16,7 +17,7 @@ export class FichierService {
   async create(createFichierDto: CreateFichierDto): Promise<Fichier> {
     const fichier = this.fichierRepository.create({
       ...createFichierDto,
-      site: { id: createFichierDto.siteId },
+      site: createFichierDto.siteId ? { id: createFichierDto.siteId } : undefined
     });
     return await this.fichierRepository.save(fichier);
   }
@@ -55,9 +56,14 @@ export class FichierService {
   }
 
   async remove(id: string): Promise<void> {
-    const result = await this.fichierRepository.delete(id);
-    if (result.affected === 0) {
-      throw new NotFoundException(`Fichier non trouvé`);
+    const fichier = await this.fichierRepository.findOne({
+      where: { id },
+    });
+    if (!fichier) {
+      throw new NotFoundException('Fichier introuvable');
     }
+    const fichierUrl = fichier.url;
+    ft_delete(fichierUrl);
+    await this.fichierRepository.delete(id);
   }
 }

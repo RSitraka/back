@@ -36,7 +36,7 @@ export class SiteService {
       ],
     });
     if (!site) {
-      throw new NotFoundException(`Site avec l'ID ${id} non trouvé`);
+      throw new NotFoundException(`Site non trouvé`);
     }
     return site;
   }

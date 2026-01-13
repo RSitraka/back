@@ -9,8 +9,11 @@ import {
   Query,
   UseInterceptors,
   UploadedFile,
+  NotFoundException,
+  Res,
 } from '@nestjs/common';
 import { FichierService } from '../fichier/fichier.service'; // Adjusted import path
+import type { Response } from 'express';
 import { CreateFichierDto } from './dto/create-fichier.dto';
 import { UpdateFichierDto } from './dto/update-fichier.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -27,6 +30,7 @@ export class FichierController {
     @Body() dto: CreateFichierDto,
   ) {
     dto.url = file.path.replace(/\\/g, '/');
+    dto.originalName = file.originalname;
     return this.FichierService.create(dto);
   }
 
@@ -44,10 +48,19 @@ export class FichierController {
     return this.FichierService.findOne(id);
   }
 
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updatefichierDto: UpdateFichierDto) {
-  //   return this.FichierService.update(id, updatefichierDto);
-  // }
+  @Get('/download/:id')
+  async download(@Param('id') id: string, @Res() res: Response) {
+    const file = await this.FichierService.findOne(id);
+    if (!file) {
+      throw new NotFoundException();
+    }
+    res.setHeader(
+      'Content-Disposition',
+      `inline; filename="${file.originalName}"`
+    );
+
+    return res.sendFile(file.url, { root: './' });
+  }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
